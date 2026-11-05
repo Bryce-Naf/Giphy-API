@@ -4,9 +4,11 @@ let endpoint = "https://api.giphy.com/v1/gifs/search?api_key=zvzba0j4Mogd91XhWtE
 async function getGifs() {
   const response = await fetch(endpoint);
   const data = await response.json();
-  const gif = data.data[0].images.original.url;
   const gifContainer = document.querySelector("#gif-container");
-  gifContainer.innerHTML = `<img src="${gif}" class="col-3 mb-3">`;
+  gifContainer.innerHTML = "";
+  for (const gif of data.data) {
+    gifContainer.innerHTML += `<img src="${gif.images.original.url}" class="col-3 mb-3">`;
+  }
 }
 
 const gifButton = document.querySelector("#fetch-gif-btn");
